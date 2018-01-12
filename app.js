@@ -11,6 +11,9 @@ const passport = require('passport');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const private = require('./routes/private');
+
+const authCheckMiddleware = require('./middleware/auth-check');
 
 const app = express();
 
@@ -39,7 +42,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/api/', users);
+app.use('/api/auth', users);
+
+app.use('/api/private', authCheckMiddleware, private);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

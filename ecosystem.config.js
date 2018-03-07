@@ -1,16 +1,15 @@
 module.exports = {
     apps: [{
         name: 'testapp',
-        script: './index.js'
+        script: './bin/www'
     }],
     deploy: {
         production: {
             user: 'root',
-            host: '139.59.96.159',
-            // key: '~/.ssh/id_rsa',
+            host: ['139.59.96.159'],
             ref: 'origin/master',
             repo: 'https://github.com/dangtienngoc/nodejs-auth.git',
-            path: '/root/projects',
+            path: '/var/www/nodejs',
             'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js'
         }
     }
